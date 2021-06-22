@@ -1,51 +1,45 @@
 <template>
   <q-item
     clickable
-    tag="a"
-    target="_blank"
-    :href="link"
+    to=""
+    class="q-ml-lg q-mr-lg q-pl-lg q-pr-lg entry"
   >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
-      <q-icon :name="icon" />
-    </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label>{{ name }}</q-item-label>
       <q-item-label caption>
-        {{ caption }}
+        <q-icon name="business" />
+        {{ company }}
       </q-item-label>
+    </q-item-section>
+    <q-item-section
+      v-if="name"
+      avatar
+    >
+      <q-avatar color="light-blue-1" text-color="blue-14" font-size="medium" />
     </q-item-section>
   </q-item>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+export default ({
   name: 'EssentialLink',
   props: {
-    title: {
+    name: {
       type: String,
       required: true
     },
 
-    caption: {
-      type: String,
-      default: ''
-    },
-
-    link: {
-      type: String,
-      default: '#'
-    },
-
-    icon: {
+    company: {
       type: String,
       default: ''
     }
   }
 })
 </script>
+
+<style scoped>
+  .entry {
+    border: 1px solid lightgray;
+  }
+</style>

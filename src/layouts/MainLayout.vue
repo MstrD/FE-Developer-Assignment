@@ -1,10 +1,18 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
 
         <q-toolbar-title>
-          <q-img id="logo" src="~assets/pipedrive_logo.svg" max-width="100px" height='40px' :fit='scale-down' />
+          <q-img 
+            id="logo" 
+            class="q-ml-sm" 
+            src="~assets/pipedrive_logo.svg" 
+            width="100px" 
+            max-height='40px' 
+            :fit='scale-down' 
+            position="left"
+          />
         </q-toolbar-title>
 
       </q-toolbar>
@@ -21,12 +29,21 @@
       </div>
       <q-separator />
 
-      <q-list bordered>
+      <q-list class="q-pt-md q-pb-md">
         <EssentialLink v-for="person in essentialLinks" :key="person.title" v-bind="person" class="q-my-sm" clickable v-ripple />
       </q-list>
 
+      <div class="wrapper">
+        <q-btn no-caps class="btn">Load more</q-btn>
+      </div>
+
       <router-view />
     </q-page-container>
+    <q-footer class="footer">
+      <q-toolbar>
+        <q-toolbar-title />
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -35,46 +52,32 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    name: 'Docs',
+    company: 'quasar.dev',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    name: 'Github',
+    company: 'github.com/quasarframework',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    name: 'Discord Chat Channel',
+    company: 'chat.quasar.dev',
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    name: 'Forum',
+    company: 'forum.quasar.dev',
   },
   {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    name: 'Twitter',
+    company: '@quasarframework',
   },
   {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
+    name: 'Facebook',
+    company: '@QuasarFramework',
   },
   {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    name: 'Quasar Awesome',
+    company: 'Community Quasar projects',
   }
 ];
 
@@ -104,6 +107,7 @@ export default defineComponent({
 <style scoped>
   #logo {
     fill: white;
+    width: auto;
   }
 
   .main-title {
@@ -113,5 +117,15 @@ export default defineComponent({
 
   .search {
     font-weight: bold;
+  }
+  .wrapper {
+    text-align: center;
+  }
+  .btn {
+    display: inline-block;
+    font-weight: bold;
+  }
+  .footer {
+    background-color: #EBEBEB;
   }
 </style>
