@@ -45,6 +45,7 @@
         <q-separator />
 
         <q-card-actions align="right" class="modal-footer">
+          <q-btn flat no-caps class="btn" label="Remove" color="negative" @click="onRemove" v-close-popup />
           <q-btn flat no-caps class="btn" label="Back" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
@@ -52,9 +53,16 @@
 </template>
 
 <script>
+import { api } from "src/boot/axios";
+
 export default ({
   name: 'PersonDetails',
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
+
     name: {
       type: String,
       required: true
@@ -94,7 +102,19 @@ export default ({
       type: String,
       default: ''
     }
-  }
+  },
+  methods: {
+    onRemove() {
+      console.log(this.id);
+      api.delete(`/persons/${this.id}?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  },
 })
 </script>
 
