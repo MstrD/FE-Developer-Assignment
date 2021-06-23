@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { api } from "src/boot/axios";
+import { api } from "boot/axios";
 
 export default ({
   name: 'PersonDetails',
@@ -105,7 +105,6 @@ export default ({
   },
   methods: {
     onRemove() {
-      console.log(this.id);
       api.delete(`/persons/${this.id}?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b`)
         .then((res) => {
           console.log(res);

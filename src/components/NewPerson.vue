@@ -83,31 +83,72 @@ export default ({
       groups: '',
       location: '',
       initials: '',
+      org_id: null
     }
   },
   methods: {
-    onSubmit() {
-      api.post('/persons?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
-        name: this.name,
-        phone: [this.phone],
-        org_id: 80,
-        org_name: this.organization,
-        email: [this.email],
-        assistant: this.assistant,
-        group: this.groups,
-      }, {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': 'JWT fefege...'
+    async getOrganization() {
+      await api.get('/organizations/search?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
+        params: {
+          term: this.organization
         }
       })
       .then((response) => {
-        console.log(response);
+        return response.data.data.items;
+      }).catch((err) => {
+        console.log(err);
+      });
+    },
+    async postOrganization(headers) {
+      await api.post('/organizations?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
+          name: this.organization,
+          address: this.location
+        }, {
+          headers: headers
+      })
+      .then((response) => {
+        return response.data.data.company_id;
       })
       .catch((error) => {
         console.log(error);
       });
+    },
+    async postPerson(headers, id) {
+      await api.post('/persons?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
+        name: this.name,
+        phone: [this.phone],
+        org_id: id,
+        email: [this.email],
+        '4fb82d351028602b86afa9228b642b08581a3848': this.assistant,
+        '64c0149cea62de084df7b8fd2ea26157c5223a9a': this.groups,
+      }, {
+        headers: headers
+      })
+      .then((response) => {
+        console.log('POST executed successfully', response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    onSubmit() {
+      // headers for POST requests
+      const headers = {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': 'JWT fefege...'
+      };
+      // first, verify if the organization inserted already exists
+      let org = this.getOrganization();
+      // if it does, get the id; if it does not, POST a new organization
+      if (org.length)
+        this.org_id = org[0].item.id;
+      else {
+        this.org_id = this.postOrganization(headers);
+        console.log('O id é ' + this.org_id);
+      }
+      // POST new person
+      this.postPerson(headers, this.org_id);
     }
   },
   watch: {

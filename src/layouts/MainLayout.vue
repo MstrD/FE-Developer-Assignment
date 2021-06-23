@@ -91,7 +91,7 @@ export default ({
             }
           }
         });
-        console.log(this.persons[0]);
+        //console.log(this.persons[0]);
       })
       .catch((e) => {
         console.log(e);
