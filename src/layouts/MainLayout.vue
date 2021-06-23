@@ -7,7 +7,7 @@
           <q-img 
             id="logo" 
             class="q-ml-sm" 
-            src="~assets/pipedrive_logo.svg" 
+            src="~assets/pipedrive_logo.svg"
             width="100px" 
             max-height='40px' 
             :fit='scale-down' 
@@ -30,7 +30,7 @@
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
-        <EssentialLink v-for="person in essentialLinks" :key="person.title" v-bind="person" class="q-my-sm" clickable v-ripple />
+        <Person v-for="person in persons" :key="person.name" v-bind="person" class="q-my-sm" clickable v-ripple />
       </q-list>
 
       <div class="wrapper">
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import Person from 'src/components/Person.vue'
 
 const linksList = [
   {
@@ -81,24 +81,16 @@ const linksList = [
   }
 ];
 
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
+export default ({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    Person
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
-
+  data () {
     return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      persons: linksList
     }
   }
 })
@@ -124,6 +116,7 @@ export default defineComponent({
   .btn {
     display: inline-block;
     font-weight: bold;
+    border: 1px solid #EBEBEB;
   }
   .footer {
     background-color: #EBEBEB;

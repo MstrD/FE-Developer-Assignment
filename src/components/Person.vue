@@ -1,7 +1,7 @@
 <template>
   <q-item
     clickable
-    to=""
+    @click="isClicked = !isClicked"
     class="q-ml-lg q-mr-lg q-pl-lg q-pr-lg entry"
   >
 
@@ -18,12 +18,18 @@
     >
       <q-avatar color="light-blue-1" text-color="blue-14" font-size="medium" />
     </q-item-section>
+    <PersonDetails v-model="isClicked" />
   </q-item>
 </template>
 
 <script>
+import PersonDetails from 'src/components/PersonDetails.vue'
+
 export default ({
-  name: 'EssentialLink',
+  name: 'Person',
+  components: {
+    PersonDetails
+  },
   props: {
     name: {
       type: String,
@@ -33,6 +39,11 @@ export default ({
     company: {
       type: String,
       default: ''
+    }
+  },
+  data() {
+    return {
+      isClicked: false
     }
   }
 })
