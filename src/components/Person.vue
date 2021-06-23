@@ -9,16 +9,27 @@
       <q-item-label>{{ name }}</q-item-label>
       <q-item-label caption>
         <q-icon name="business" />
-        {{ company }}
+        {{ org_name }}
       </q-item-label>
     </q-item-section>
     <q-item-section
       v-if="name"
       avatar
     >
-      <q-avatar color="light-blue-1" text-color="blue-14" font-size="medium" />
+      <q-avatar color="light-blue-1" text-color="blue-14" font-size="medium">{{ initials }}</q-avatar>
     </q-item-section>
-    <PersonDetails v-model="isClicked" />
+    <PersonDetails
+      v-model="isClicked"
+      v-bind:id="id"
+      v-bind:name="name"
+      v-bind:phone="phone[0].value"
+      v-bind:email="email[0].value"
+      v-bind:assistant="assistant"
+      v-bind:location="org_id.address"
+      v-bind:organization="org_name"
+      v-bind:groups="group"
+      v-bind:initials="initials"
+    />
   </q-item>
 </template>
 
@@ -36,14 +47,45 @@ export default ({
       required: true
     },
 
-    company: {
+    org_name: {
+      type: String,
+      default: ''
+    },
+
+    org_id: {
+      type: Object,
+      default: ''
+    },
+
+    phone: {
+      type: String,
+      default: ''
+    },
+
+    email: {
+      type: String,
+      default: ''
+    },
+
+    assistant: {
+      type: String,
+      default: ''
+    },
+
+    group: {
+      type: String,
+      default: ''
+    },
+
+    address: {
       type: String,
       default: ''
     }
   },
   data() {
     return {
-      isClicked: false
+      isClicked: false,
+      initials: this.name.replace(/[a-z]/g, '').replace(' ', '')
     }
   }
 })

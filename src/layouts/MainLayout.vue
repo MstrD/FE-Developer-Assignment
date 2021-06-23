@@ -21,7 +21,7 @@
     <q-page-container>
       <div class="first-header flex">
         <div class='q-pl-lg q-pt-md q-pb-md col main-title'>People's List</div>
-        <q-input class="col-12 q-mr-lg search" v-model="search" filled rounded type="search" label="Filter by name">
+        <q-input class="col-12 q-mr-lg q-mt-sm q-mb-sm search" v-model="search" dense filled square type="search" label="Filter by name">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
@@ -30,7 +30,7 @@
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
-        <Person v-for="person in persons" :key="person.name" v-bind="person" class="q-my-sm" clickable v-ripple />
+        <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm" clickable v-ripple />
       </q-list>
 
       <div class="wrapper">
@@ -48,50 +48,40 @@
 </template>
 
 <script>
-import Person from 'src/components/Person.vue'
-
-const linksList = [
-  {
-    name: 'Docs',
-    company: 'quasar.dev',
-  },
-  {
-    name: 'Github',
-    company: 'github.com/quasarframework',
-  },
-  {
-    name: 'Discord Chat Channel',
-    company: 'chat.quasar.dev',
-  },
-  {
-    name: 'Forum',
-    company: 'forum.quasar.dev',
-  },
-  {
-    name: 'Twitter',
-    company: '@quasarframework',
-  },
-  {
-    name: 'Facebook',
-    company: '@QuasarFramework',
-  },
-  {
-    name: 'Quasar Awesome',
-    company: 'Community Quasar projects',
-  }
-];
+import Person from 'src/components/Person.vue';
+import { api } from 'boot/axios';
 
 export default ({
   name: 'MainLayout',
-
   components: {
     Person
   },
-
   data () {
     return {
-      persons: linksList
+      persons: null
     }
+  },
+  mounted() {
+    // API key
+    api.get('/persons?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b')
+      .then((response) => {
+        this.persons = Array.from(response.data.data);
+        
+        // FIX: change keys of created fields when adding persons
+        this.persons.forEach(el => {
+          let oldKeys = ["4fb82d351028602b86afa9228b642b08581a3848", "64c0149cea62de084df7b8fd2ea26157c5223a9a"],
+              newKeys = ['assistant', 'group'];
+          for (let i = 0; i < oldKeys.length; i++) {
+            if (oldKeys[i] !== newKeys[i]) {
+              Object.defineProperty(el, newKeys[i], Object.getOwnPropertyDescriptor(el, oldKeys[i]));
+              delete el[oldKeys[i]];
+            }
+          }
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 })
 </script>
