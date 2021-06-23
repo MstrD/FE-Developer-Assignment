@@ -48,11 +48,6 @@
           <q-btn flat no-caps class="btn" label="Back" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
-      <q-item-section
-      v-if="name"
-      avatar
-    >
-    </q-item-section>
     </q-dialog>
 </template>
 

@@ -21,12 +21,20 @@
     <q-page-container>
       <div class="first-header flex">
         <div class='q-pl-lg q-pt-md q-pb-md col main-title'>People's List</div>
-        <q-input class="col-12 q-mr-lg q-mt-sm q-mb-sm search" v-model="search" dense filled square type="search" label="Filter by name">
-          <template v-slot:prepend>
-            <q-icon name="search" />
-          </template>
-        </q-input>
+        <div class="col-8 flex">
+          <q-btn dense class="col-12 q-mt-md q-mb-md q-mr-lg" icon="add" @click="isAdding = !isAdding">
+            <q-tooltip transition-show="flip-right" transition-hide="flip-left">Add a person</q-tooltip>
+          </q-btn>
+          <q-space />
+          <q-input class="col-12 q-mr-lg q-mt-sm q-mb-sm search" v-model="search" dense filled square type="search" label="Filter by name">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+        </div>
       </div>
+
+      <NewPerson v-model="isAdding" />
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
@@ -49,16 +57,20 @@
 
 <script>
 import Person from 'src/components/Person.vue';
+import NewPerson from 'src/components/NewPerson.vue';
+
 import { api } from 'boot/axios';
 
 export default ({
   name: 'MainLayout',
   components: {
-    Person
+    Person,
+    NewPerson
   },
   data () {
     return {
-      persons: null
+      persons: null,
+      isAdding: false
     }
   },
   mounted() {
@@ -66,9 +78,10 @@ export default ({
     api.get('/persons?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b')
       .then((response) => {
         this.persons = Array.from(response.data.data);
-        
+
         // FIX: change keys of created fields when adding persons
         this.persons.forEach(el => {
+   
           let oldKeys = ["4fb82d351028602b86afa9228b642b08581a3848", "64c0149cea62de084df7b8fd2ea26157c5223a9a"],
               newKeys = ['assistant', 'group'];
           for (let i = 0; i < oldKeys.length; i++) {
@@ -78,6 +91,7 @@ export default ({
             }
           }
         });
+        console.log(this.persons[0]);
       })
       .catch((e) => {
         console.log(e);

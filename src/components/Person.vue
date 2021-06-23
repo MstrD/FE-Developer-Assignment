@@ -58,12 +58,12 @@ export default ({
     },
 
     phone: {
-      type: String,
+      type: Object,
       default: ''
     },
 
     email: {
-      type: String,
+      type: Object,
       default: ''
     },
 
@@ -73,11 +73,6 @@ export default ({
     },
 
     group: {
-      type: String,
-      default: ''
-    },
-
-    address: {
       type: String,
       default: ''
     }

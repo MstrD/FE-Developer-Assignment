@@ -3,7 +3,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
-const api = axios.create({ baseURL: 'http://mastertips.pipedrive.com/v1' })
+const api = axios.create({ baseURL: 'https://mastertips.pipedrive.com/v1' })
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
