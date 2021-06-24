@@ -82,19 +82,27 @@ export default ({
       assistant: '',
       groups: '',
       location: '',
-      initials: '',
-      org_id: null
+      initials: ''
     }
   },
   methods: {
-    async getOrganization() {
+    async getOrganization(headers) {
       await api.get('/organizations/search?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
         params: {
           term: this.organization
         }
       })
       .then((response) => {
-        return response.data.data.items;
+        if (response.data.data.items.length) {
+          let oldest = response.data.data.items[0].id;
+          response.data.data.items.forEach(element => {
+            if (element.id < oldest)
+              oldest = element.id;
+          });
+          this.postPerson(headers, oldest);
+        }
+        else
+          this.postOrganization(headers);
       }).catch((err) => {
         console.log(err);
       });
@@ -107,7 +115,7 @@ export default ({
           headers: headers
       })
       .then((response) => {
-        return response.data.data.company_id;
+        this.postPerson(headers, response.data.data.id);
       })
       .catch((error) => {
         console.log(error);
@@ -125,7 +133,7 @@ export default ({
         headers: headers
       })
       .then((response) => {
-        console.log('POST executed successfully', response);
+        console.log('POST executed successfully', response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -138,17 +146,9 @@ export default ({
           'Access-Control-Allow-Origin': '*',
           'Authorization': 'JWT fefege...'
       };
-      // first, verify if the organization inserted already exists
-      let org = this.getOrganization();
-      // if it does, get the id; if it does not, POST a new organization
-      if (org.length)
-        this.org_id = org[0].item.id;
-      else {
-        this.org_id = this.postOrganization(headers);
-        console.log('O id é ' + this.org_id);
-      }
-      // POST new person
-      this.postPerson(headers, this.org_id);
+      // first, verify if the organization inserted already exists;
+      // then, every other request is asked in Promises
+      this.getOrganization(headers);
     }
   },
   watch: {
