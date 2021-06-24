@@ -21,7 +21,7 @@
       <div class="first-header flex">
         <div class='q-pl-lg q-pt-md q-pb-md col main-title'>People's List</div>
         <div class="col-8 flex">
-          <q-btn dense class="col-12 q-mt-md q-mb-md q-mr-lg" icon="add" @click="isAdding = !isAdding">
+          <q-btn dense class="col-12 q-mt-sm q-mb-md q-mr-lg" icon="person_add" @click="isAdding = !isAdding">
             <q-tooltip transition-show="flip-right" transition-hide="flip-left">Add a person</q-tooltip>
           </q-btn>
           <q-space />
