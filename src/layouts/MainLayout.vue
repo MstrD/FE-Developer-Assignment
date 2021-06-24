@@ -38,7 +38,11 @@
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
-        <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm" clickable v-ripple />
+        <draggable v-model="persons">
+          <transition-group>
+          <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm" clickable v-ripple />
+          </transition-group>
+        </draggable>
       </q-list>
 
       <div class="wrapper">
@@ -59,18 +63,22 @@
 import Person from 'src/components/Person.vue';
 import NewPerson from 'src/components/NewPerson.vue';
 
+import { draggable } from 'vuedraggable';
+
 import { api } from 'boot/axios';
 
 export default ({
   name: 'MainLayout',
   components: {
     Person,
-    NewPerson
+    NewPerson,
+    draggable
   },
   data () {
     return {
       persons: null,
-      isAdding: false
+      isAdding: false,
+      drag: false
     }
   },
   mounted() {
