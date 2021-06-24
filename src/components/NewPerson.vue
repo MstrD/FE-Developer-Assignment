@@ -13,7 +13,9 @@
           <q-separator />
 
           <q-card-section style="max-height: 50vh; width: 400px;" class="scroll modal-header">
-            <q-avatar size="100px" class="row avatar" color="light-blue-1" text-color="blue-14" font-size="xxx-large">{{ initials }}</q-avatar>
+            <div id="avatar">
+              <q-avatar size="100px" class="row avatar" color="light-blue-1" text-color="blue-14" font-size="xxx-large">{{ initials }}</q-avatar>
+            </div>
             <div id="details_main">
               <div class="row">
                 <div class="col-4 col-left text-bold">Name</div>
@@ -174,6 +176,11 @@ export default ({
   .col-right {
     text-align: left;
     padding-left: 10px;
+  }
+  #avatar {
+    display: grid;
+    justify-content: center;
+    text-align: center;
   }
   .modal-footer {
     background-color: #EBEBEB;
