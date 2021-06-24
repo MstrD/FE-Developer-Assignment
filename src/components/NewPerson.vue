@@ -155,7 +155,7 @@ export default ({
   },
   watch: {
     name: function(val) {
-      this.initials = val.replace(/[a-z]/g, '').replace(' ', '');
+      this.initials = val.replace(/[^A-Z]/g, '').replace(' ', '');
     }
   }
 })

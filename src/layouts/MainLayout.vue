@@ -10,7 +10,6 @@
             src="~assets/pipedrive_logo.svg"
             width="100px" 
             max-height='40px' 
-            :fit='scale-down' 
             position="left"
           />
         </q-toolbar-title>
@@ -26,7 +25,15 @@
             <q-tooltip transition-show="flip-right" transition-hide="flip-left">Add a person</q-tooltip>
           </q-btn>
           <q-space />
-          <q-input class="col-12 q-mr-lg q-mt-sm q-mb-sm search" v-model="search" dense filled square type="search" label="Filter by name">
+          <q-input
+            class="col-12 q-mr-lg q-mt-sm q-mb-sm search"
+            v-model="search"
+            dense
+            filled
+            square
+            label="Filter by name"
+            type="text"
+          >
             <template v-slot:prepend>
               <q-icon name="search" />
             </template>
@@ -38,8 +45,8 @@
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
-        <draggable :list="persons" ghost-class="ghost-card" draggable=".item" :animation="200" @start="drag=true" @end="drag=false">
-          <transition-group>
+        <draggable :list="persons" ghost-class="ghost-card" draggable=".item" :animation="500" @start="drag=true" @end="drag=false">
+          <transition-group tag="Person" class="item">
           <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm item" clickable v-ripple />
           </transition-group>
         </draggable>
@@ -76,8 +83,10 @@ export default ({
   data () {
     return {
       persons: null,
+      personsCopy: null,
       isAdding: false,
-      drag: false
+      drag: false,
+      search: ''
     }
   },
   mounted() {
@@ -98,12 +107,26 @@ export default ({
             }
           }
         });
-        //console.log(this.persons);
+        // needed for search purposes
+        this.personsCopy = JSON.parse(JSON.stringify(this.persons));
       })
       .catch((e) => {
         console.log(e);
       });
-  }
+  },
+  watch: {
+    search: function(val) {
+      val = val.toLowerCase();
+      if (!val)
+        this.persons = this.personsCopy;
+      else {
+        this.persons = [this.personsCopy.filter((el) => {
+          let name = el.name.toLowerCase();
+          return name.includes(val);
+        })][0];
+      }
+    }
+  },
 })
 </script>
 

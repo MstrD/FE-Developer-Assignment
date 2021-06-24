@@ -25,7 +25,7 @@
       v-bind:phone="phone[0].value"
       v-bind:email="email[0].value"
       v-bind:assistant="assistant"
-      v-bind:location="' ' || org_id.address"
+      v-bind:location="org_id.address"
       v-bind:organization="org_name"
       v-bind:groups="group"
       v-bind:initials="initials"
@@ -85,7 +85,7 @@ export default ({
   data() {
     return {
       isClicked: false,
-      initials: this.name.replace(/[a-z]/g, '').replace(' ', '')
+      initials: this.name.replace(/[^A-Z]/g, '').replace(' ', '')
     }
   }
 })
