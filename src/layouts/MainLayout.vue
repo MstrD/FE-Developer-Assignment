@@ -4,14 +4,17 @@
       <q-toolbar>
 
         <q-toolbar-title>
-          <q-img 
-            id="logo" 
-            class="q-ml-sm" 
-            src="~assets/pipedrive_logo.svg"
-            width="100px" 
-            max-height='40px' 
-            position="left"
-          />
+          <a href="http://www.pipedrive.com" target="_blank">
+            <q-img 
+              id="logo" 
+              alt="Pipedrive"
+              class="q-ml-sm" 
+              src="~assets/pipedrive_logo.svg"
+              width="100px" 
+              max-height='40px' 
+              position="left"
+            />
+          </a>
         </q-toolbar-title>
 
       </q-toolbar>
