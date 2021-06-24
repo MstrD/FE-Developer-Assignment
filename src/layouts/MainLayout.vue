@@ -6,8 +6,9 @@
         <q-toolbar-title>
           <a href="http://www.pipedrive.com" target="_blank">
             <q-img 
-              id="logo" 
-              alt="Pipedrive"
+              id="logo"
+              alt="Pipedrive Logo"
+              title="Pipedrive"
               class="q-ml-sm" 
               src="~assets/pipedrive_logo.svg"
               width="100px" 
