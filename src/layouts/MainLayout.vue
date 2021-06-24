@@ -38,9 +38,9 @@
       <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
-        <draggable v-model="persons">
+        <draggable :list="persons" ghost-class="ghost-card" draggable=".item" :animation="200" @start="drag=true" @end="drag=false">
           <transition-group>
-          <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm" clickable v-ripple />
+          <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm item" clickable v-ripple />
           </transition-group>
         </draggable>
       </q-list>
@@ -63,16 +63,15 @@
 import Person from 'src/components/Person.vue';
 import NewPerson from 'src/components/NewPerson.vue';
 
-import { draggable } from 'vuedraggable';
-
 import { api } from 'boot/axios';
+import { VueDraggableNext } from 'vue-draggable-next';
 
 export default ({
   name: 'MainLayout',
   components: {
     Person,
     NewPerson,
-    draggable
+    draggable: VueDraggableNext
   },
   data () {
     return {
@@ -99,7 +98,7 @@ export default ({
             }
           }
         });
-        console.log(this.persons);
+        //console.log(this.persons);
       })
       .catch((e) => {
         console.log(e);
@@ -132,5 +131,13 @@ export default ({
   }
   .footer {
     background-color: #EBEBEB;
+  }
+  .ghost-card {
+    opacity: 0.5;
+    background: #F7FAFC;
+    border: 1px solid #4299e1;
+  }
+  .item:hover, .item:active, .item:focus {
+    cursor: move !important;
   }
 </style>
