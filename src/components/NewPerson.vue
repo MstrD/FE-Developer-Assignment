@@ -72,7 +72,7 @@
 
 <script>
 import { api } from 'boot/axios';
-import { useQuasar } from 'quasar';
+import { Notify } from 'quasar';
 
 export default ({
   name: 'NewPerson',
@@ -108,6 +108,10 @@ export default ({
           this.postOrganization(headers);
       }).catch((err) => {
         console.log(err);
+        Notify.create({
+            message: 'Error getting organizations.',
+            color: 'negative'
+          });
       });
     },
     async postOrganization(headers) {
@@ -122,6 +126,10 @@ export default ({
       })
       .catch((error) => {
         console.log(error);
+        Notify.create({
+            message: 'Error adding organization.',
+            color: 'negative'
+          });
       });
     },
     async postPerson(headers, id) {
@@ -138,11 +146,18 @@ export default ({
       })
       .then((response) => {
         console.log('POST executed successfully', response.data);
-        alert('Person added successfully!');
+        Notify.create({
+          message: 'Person added successfully!',
+          color: 'positive'
+        });
         self.$router.go();
       })
       .catch((error) => {
         console.log(error);
+        Notify.create({
+            message: 'Error adding person.',
+            color: 'negative'
+          });
       });
     },
     onSubmit() {
@@ -160,17 +175,6 @@ export default ({
   watch: {
     name: function(val) {
       this.initials = val.replace(/[^A-Z]/g, '').replace(' ', '');
-    }
-  },
-  setup() {
-    const $q = useQuasar();
-    return {
-      showNotifSuccess() {
-        $q.notify({
-          message: 'Person added successfully!',
-          color: positive
-        });
-      }
     }
   }
 })

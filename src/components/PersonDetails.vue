@@ -54,6 +54,7 @@
 
 <script>
 import { api } from "boot/axios";
+import { Notify } from "quasar";
 
 export default ({
   name: 'PersonDetails',
@@ -109,11 +110,18 @@ export default ({
       api.delete(`/persons/${this.id}?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b`)
         .then((res) => {
           console.log(res);
-          alert('Person deleted successfully!');
+          Notify.create({
+            message: 'Person deleted successfully!',
+            color: 'positive'
+          });
           self.$router.go();
         })
         .catch((err) => {
           console.log(err);
+          Notify.create({
+            message: 'Error deleting person.',
+            color: 'negative'
+          });
         });
     }
   },
