@@ -13,7 +13,7 @@
           <q-separator />
 
           <q-card-section style="max-height: 50vh; width: 400px;" class="scroll modal-header">
-            <div id="avatar">
+            <div id="avatar" class="q-mb-md">
               <q-avatar size="100px" class="row avatar" color="light-blue-1" text-color="blue-14" font-size="xxx-large">{{ initials }}</q-avatar>
             </div>
             <div id="details_main">
@@ -176,6 +176,7 @@ export default ({
   .col-right {
     text-align: left;
     padding-left: 10px;
+    margin-top: -10px;
   }
   #avatar {
     display: grid;
