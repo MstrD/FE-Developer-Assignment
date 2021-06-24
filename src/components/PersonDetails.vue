@@ -105,9 +105,12 @@ export default ({
   },
   methods: {
     onRemove() {
+      var self = this;
       api.delete(`/persons/${this.id}?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b`)
         .then((res) => {
           console.log(res);
+          alert('Person deleted successfully!');
+          self.$router.go();
         })
         .catch((err) => {
           console.log(err);

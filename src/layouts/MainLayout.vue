@@ -46,7 +46,7 @@
 
       <q-list class="q-pt-md q-pb-md">
         <draggable :list="persons" ghost-class="ghost-card" draggable=".item" :animation="500" @start="drag=true" @end="drag=false">
-          <transition-group tag="Person" class="item">
+          <transition-group>
           <Person v-for="person in persons" :key="person.id" v-bind="person" class="q-my-sm item" clickable v-ripple />
           </transition-group>
         </draggable>

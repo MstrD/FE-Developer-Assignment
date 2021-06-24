@@ -72,6 +72,7 @@
 
 <script>
 import { api } from 'boot/axios';
+import { useQuasar } from 'quasar';
 
 export default ({
   name: 'NewPerson',
@@ -124,6 +125,7 @@ export default ({
       });
     },
     async postPerson(headers, id) {
+      var self = this;
       await api.post('/persons?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b', {
         name: this.name,
         phone: [this.phone],
@@ -136,6 +138,8 @@ export default ({
       })
       .then((response) => {
         console.log('POST executed successfully', response.data);
+        alert('Person added successfully!');
+        self.$router.go();
       })
       .catch((error) => {
         console.log(error);
@@ -156,6 +160,17 @@ export default ({
   watch: {
     name: function(val) {
       this.initials = val.replace(/[^A-Z]/g, '').replace(' ', '');
+    }
+  },
+  setup() {
+    const $q = useQuasar();
+    return {
+      showNotifSuccess() {
+        $q.notify({
+          message: 'Person added successfully!',
+          color: positive
+        });
+      }
     }
   }
 })
