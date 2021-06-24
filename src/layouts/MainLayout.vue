@@ -147,7 +147,7 @@ export default ({
     top: 50px;
     background-color: white;
     z-index: 3;
-    border-bottom: 1px solid #EBEBEB;
+    border-bottom: 3px solid #EBEBEB;
   }
   .search {
     font-weight: bold;
