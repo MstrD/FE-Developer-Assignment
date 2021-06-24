@@ -109,7 +109,6 @@ export default ({
       var self = this;
       api.delete(`/persons/${this.id}?api_token=994ffda10b43ea64cec09ba07cdc6ff108909d4b`)
         .then((res) => {
-          console.log(res);
           Notify.create({
             message: 'Person deleted successfully!',
             color: 'positive'
@@ -117,7 +116,6 @@ export default ({
           setTimeout(() => self.$router.go(), 1000);
         })
         .catch((err) => {
-          console.log(err);
           Notify.create({
             message: 'Error deleting person.',
             color: 'negative'

@@ -107,7 +107,6 @@ export default ({
         else
           this.postOrganization(headers);
       }).catch((err) => {
-        console.log(err);
         Notify.create({
             message: 'Error getting organizations.',
             color: 'negative'
@@ -125,7 +124,6 @@ export default ({
         this.postPerson(headers, response.data.data.id);
       })
       .catch((error) => {
-        console.log(error);
         Notify.create({
             message: 'Error adding organization.',
             color: 'negative'
@@ -145,7 +143,6 @@ export default ({
         headers: headers
       })
       .then((response) => {
-        console.log('POST executed successfully', response.data);
         Notify.create({
           message: 'Person added successfully!',
           color: 'positive'
@@ -153,7 +150,6 @@ export default ({
         setTimeout(() => self.$router.go(), 1000);
       })
       .catch((error) => {
-        console.log(error);
         Notify.create({
             message: 'Error adding person.',
             color: 'negative'

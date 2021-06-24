@@ -75,6 +75,7 @@ import NewPerson from 'src/components/NewPerson.vue';
 
 import { api } from 'boot/axios';
 import { VueDraggableNext } from 'vue-draggable-next';
+import { Notify } from 'quasar';
 
 export default ({
   name: 'MainLayout',
@@ -114,7 +115,11 @@ export default ({
         this.personsCopy = JSON.parse(JSON.stringify(this.persons));
       })
       .catch((e) => {
-        console.log(e);
+        Notify.create({
+          message: 'Error getting persons from API.',
+          caption: 'Please, try to reload the page.',
+          color: 'negative'
+        });
       });
   },
   watch: {
