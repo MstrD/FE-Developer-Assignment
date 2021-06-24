@@ -34,7 +34,7 @@
             dense
             filled
             square
-            label="Filter by name"
+            label="Filter by name..."
             type="text"
           >
             <template v-slot:prepend>
@@ -45,7 +45,6 @@
       </div>
 
       <NewPerson v-model="isAdding" />
-      <q-separator />
 
       <q-list class="q-pt-md q-pb-md">
         <draggable :list="persons" ghost-class="ghost-card" draggable=".item" :animation="500" @start="drag=true" @end="drag=false">
@@ -138,12 +137,18 @@ export default ({
     fill: white;
     width: auto;
   }
-
   .main-title {
     font-weight: bold;
     font-size: 16pt;
   }
-
+  .first-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+    background-color: white;
+    z-index: 3;
+    border-bottom: 1px solid #EBEBEB;
+  }
   .search {
     font-weight: bold;
   }

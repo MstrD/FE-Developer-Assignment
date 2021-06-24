@@ -150,7 +150,7 @@ export default ({
           message: 'Person added successfully!',
           color: 'positive'
         });
-        self.$router.go();
+        setTimeout(() => self.$router.go(), 1000);
       })
       .catch((error) => {
         console.log(error);

@@ -114,7 +114,7 @@ export default ({
             message: 'Person deleted successfully!',
             color: 'positive'
           });
-          self.$router.go();
+          setTimeout(() => self.$router.go(), 1000);
         })
         .catch((err) => {
           console.log(err);
